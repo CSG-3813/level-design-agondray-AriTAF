@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 345263033469638334, guid: 6f8a7212a278b8f4fbdc0789d61e5776,
         type: 3}
       propertyPath: m_Name
-      value: Thin Wall .25x3x4
+      value: Thin Wall .25x3x4 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1982927553664061492, guid: 6f8a7212a278b8f4fbdc0789d61e5776,
         type: 3}
@@ -212,6 +212,11 @@ PrefabInstance:
       propertyPath: m_SelectedVertices.Array.data[3]
       value: 23
       objectReference: {fileID: 0}
+    - target: {fileID: 6182221290600652198, guid: 6f8a7212a278b8f4fbdc0789d61e5776,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 83ce902630ff3d542aaa40e1eb152372, type: 2}
     - target: {fileID: 6605838952110308390, guid: 6f8a7212a278b8f4fbdc0789d61e5776,
         type: 3}
       propertyPath: m_RootOrder
