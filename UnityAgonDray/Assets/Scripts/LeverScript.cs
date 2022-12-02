@@ -10,6 +10,7 @@ public class LeverScript : MonoBehaviour
     public DrawbridgeScript drawbridge;
 
     private Animator animator;
+    private AudioSource aSource;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,7 @@ public class LeverScript : MonoBehaviour
         leverPulled = false;
         playerInTrigger = false;
         animator = GetComponent<Animator>();
-
+        aSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -27,7 +28,8 @@ public class LeverScript : MonoBehaviour
         {
             leverPulled = true;
             drawbridge.LeverPulled();
-            animator.SetBool("LeverUp", false);
+            animator.SetBool("LeverUp", true);
+            aSource.Play();
         }
     }
 
