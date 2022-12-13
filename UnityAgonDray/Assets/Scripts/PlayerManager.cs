@@ -16,10 +16,12 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     /*****Variables*****/
-    private bool spearActive;
-    private bool swordActive;
     public GameObject Spear;
+    private Weapon SpearWeap;
     public GameObject Sword;
+    private Weapon SwordWeap;
+
+    private Weapon ActiveWeapon;
 
     [SerializeField]
     private int playerHealth;
@@ -29,14 +31,26 @@ public class PlayerManager : MonoBehaviour
     private float swingingTime = 0;
     public float swingDuration;
 
+    public AudioSource damageAudioSource;
+
     // Start is called before the first frame update
     void Start()
     {
-        spearActive = false;
-        swordActive = false;
+        // Initialize values
+        playerHealth = playerMaxHealth;
+        SpearWeap = Spear.GetComponent<Weapon>();
+        SwordWeap = Sword.GetComponent<Weapon>();
+
+        // Deactivate both weapons unitl they're equipped
+        ActiveWeapon = null;
         Spear.SetActive(false);
         Sword.SetActive(false);
-        playerHealth = playerMaxHealth;
+
+        if(damageAudioSource == null)
+        {
+            damageAudioSource = GetComponent<AudioSource>();
+        }
+
     }
 
     // Update is called once per frame
@@ -44,7 +58,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (!swinging)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 swinging = true;
                 Attack();
@@ -53,31 +67,50 @@ public class PlayerManager : MonoBehaviour
         } 
         else
         {
-            
+            swingingTime += Time.deltaTime;
+            if(swingingTime >= swingDuration)
+            {
+                swinging = false;
+            }
         }
     }
 
     // Sets the character to have the spear
     public void CollectSpear()
     {
-
+        if (ActiveWeapon == null)
+        {
+            Spear.SetActive(true);
+            ActiveWeapon = SpearWeap;
+        }
     }
 
     // Sets the character to have the sword and not have the spear
     public void CollectSword()
     {
-
+        Sword.SetActive(true);
+        Spear.SetActive(false);
+        ActiveWeapon = SwordWeap;
     }
 
     // Swings weapon
     public void Attack()
     {
-
+        if(ActiveWeapon != null)
+        {
+            Debug.Log("Attacking");
+            ActiveWeapon.Attack();
+        }
     }
 
     // Take damage
-    public void Damage()
+    public void Damage(int dmg)
     {
-
+        playerHealth -= dmg;
+        if(playerHealth <= 0)
+        {
+            Debug.Log("Game Over");
+            // Trigger Game Over
+        }
     }
 }
