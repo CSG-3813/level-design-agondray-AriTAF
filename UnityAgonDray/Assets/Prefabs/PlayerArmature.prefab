@@ -357,10 +357,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Spear: {fileID: 6123699267574591148}
   Sword: {fileID: 3964071525893803283}
+  hasKey: 0
+  ActiveWeapon: {fileID: 0}
   playerHealth: 0
   playerMaxHealth: 3
   swingDuration: 1
+  attackHitbox: {fileID: 0}
   damageAudioSource: {fileID: 0}
+  ui: {fileID: 0}
 --- !u!1 &5071225146539191050
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,19 +542,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 803226603797943921}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &803226604568830489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6123699267574591148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0175b81965c3e6f418ac40f7e83543ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponDamage: 1
 --- !u!95 &1896775276676363923
 Animator:
   serializedVersion: 4
@@ -571,6 +562,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &803226604568830489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6123699267574591148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0175b81965c3e6f418ac40f7e83543ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDamage: 1
 --- !u!1001 &803226605132677947
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -663,7 +667,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 60936973169510100, guid: edccbf15fadd9704cb7a2020a492b120, type: 3}
+    - {fileID: 4973527320319548247, guid: edccbf15fadd9704cb7a2020a492b120, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: edccbf15fadd9704cb7a2020a492b120, type: 3}
 --- !u!1 &3964071525893803283 stripped
 GameObject:
@@ -671,19 +677,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 803226605132677947}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &803226604825744114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3964071525893803283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0175b81965c3e6f418ac40f7e83543ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponDamage: 3
 --- !u!95 &2029241836085392057
 Animator:
   serializedVersion: 4
@@ -704,6 +697,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &803226604825744114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3964071525893803283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0175b81965c3e6f418ac40f7e83543ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDamage: 3
 --- !u!4 &3964071525893803293 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4334314812708720166, guid: edccbf15fadd9704cb7a2020a492b120,

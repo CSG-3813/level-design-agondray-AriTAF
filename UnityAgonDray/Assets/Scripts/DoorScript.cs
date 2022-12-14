@@ -10,6 +10,7 @@ public class DoorScript : MonoBehaviour
 
     private bool playerInTrigger = false;
     private bool doorOpen = false;
+    private bool playerHasKey;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class DoorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerInTrigger && !doorOpen && Input.GetKeyDown(KeyCode.E))
+        if (playerInTrigger && !doorOpen && playerHasKey && Input.GetKeyDown(KeyCode.E))
         {
             doorOpen = true;
             doorAnimator.SetTrigger("OpenDoor");
@@ -40,6 +41,7 @@ public class DoorScript : MonoBehaviour
         {
             playerInTrigger = true;
             Debug.Log("player entered door trigger");
+            playerHasKey = other.GetComponent<PlayerManager>().hasKey;
         }
     }
 

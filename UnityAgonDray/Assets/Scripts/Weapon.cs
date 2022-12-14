@@ -2,9 +2,9 @@
  * Created by: Krieger
  * Created on: 12/13/2022
  * 
- * Last edited: N/A
+ * Last edited: 12/14/2022
  * 
- * Description: Handles all the extra stuff I added to the player
+ * Description: Handles weapon behavior
  * 
  */
 
@@ -14,20 +14,16 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    Animator weaponAnimator;
+    protected Animator weaponAnimator;
 
     public int weaponDamage = 1;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        weaponAnimator = GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if(weaponAnimator == null)
+        {
+            weaponAnimator = GetComponent<Animator>();
+        }
     }
 
     public void Attack()

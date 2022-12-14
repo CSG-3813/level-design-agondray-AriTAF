@@ -21,17 +21,25 @@ public class PlayerManager : MonoBehaviour
     public GameObject Sword;
     private Weapon SwordWeap;
 
+    public bool hasKey;
+
+    [SerializeField]
     private Weapon ActiveWeapon;
 
     [SerializeField]
     private int playerHealth;
     public int playerMaxHealth;
+    private int lastHitNum = -1;
 
     private bool swinging = false;
     private float swingingTime = 0;
     public float swingDuration;
 
+    public GameObject attackHitbox;
+
     public AudioSource damageAudioSource;
+
+    public UIManager ui;
 
     // Start is called before the first frame update
     void Start()
@@ -40,17 +48,20 @@ public class PlayerManager : MonoBehaviour
         playerHealth = playerMaxHealth;
         SpearWeap = Spear.GetComponent<Weapon>();
         SwordWeap = Sword.GetComponent<Weapon>();
+        hasKey = false;
 
         // Deactivate both weapons unitl they're equipped
         ActiveWeapon = null;
         Spear.SetActive(false);
         Sword.SetActive(false);
+        attackHitbox.SetActive(false);
 
         if(damageAudioSource == null)
         {
             damageAudioSource = GetComponent<AudioSource>();
         }
 
+        UpdateUIManager();
     }
 
     // Update is called once per frame
@@ -71,6 +82,7 @@ public class PlayerManager : MonoBehaviour
             if(swingingTime >= swingDuration)
             {
                 swinging = false;
+                attackHitbox.SetActive(false);
             }
         }
     }
@@ -88,8 +100,9 @@ public class PlayerManager : MonoBehaviour
     // Sets the character to have the sword and not have the spear
     public void CollectSword()
     {
-        Sword.SetActive(true);
+        Debug.Log("Sword collected");
         Spear.SetActive(false);
+        Sword.SetActive(true);
         ActiveWeapon = SwordWeap;
     }
 
@@ -98,19 +111,46 @@ public class PlayerManager : MonoBehaviour
     {
         if(ActiveWeapon != null)
         {
-            Debug.Log("Attacking");
             ActiveWeapon.Attack();
+            attackHitbox.SetActive(true);
+            attackHitbox.GetComponent<PlayerHitboxScript>().Attack(ActiveWeapon.weaponDamage);
         }
     }
 
     // Take damage
-    public void Damage(int dmg)
+    public void Damage(int dmg, int hitNum)
     {
-        playerHealth -= dmg;
-        if(playerHealth <= 0)
+        if(hitNum != lastHitNum)
         {
-            Debug.Log("Game Over");
-            // Trigger Game Over
+            playerHealth -= dmg;
+            lastHitNum = hitNum;
+            UpdateUIManager();
+
+            if(playerHealth <= 0)
+            {
+                Debug.Log("Game Over");
+                // Trigger Game Over
+
+
+                ui.GameOver();
+            }
+            else if(playerHealth < 3)
+            {
+                ui.SetDialogueUI("That one stung a bit.");
+            }
+
         }
+        
+    }
+
+    // Obtain the key to the door, called by the key pickup
+    public void ObtainKey()
+    {
+        hasKey = true;
+    }
+
+    public void UpdateUIManager()
+    {
+        ui.SetHealthUI(new string(playerHealth + "/" + playerMaxHealth));
     }
 }
